@@ -64,3 +64,64 @@ def escape_sequence():
 
 # This actually kicks off the game logic
 start_game()
+import time
+import sys
+import random  # <-- Adds random number generator math
+
+def print_slow(text):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.02)
+    print()
+
+# Initial inventory state tracking
+player_inventory = ["Neural Deck"]
+
+def start_game():
+    print_slow("\n=== SYSTEM INITIALIZED: NEO-TOKYO NETRUNNER PRO ===\n")
+    print_slow(f"Current Inventory: {player_inventory}")
+    time.sleep(0.5)
+    print_slow("\nYou are tracking a data package down a dark alley. A shady merchant offers you an item.")
+    print("1) Buy a 'Laser-Decryptor' for 50 credits.")
+    print("2) Ignore them and head straight to the mainframe node.")
+    
+    choice = input("\nEnter choice (1 or 2): ")
+    if choice == "1":
+        player_inventory.append("Laser-Decryptor")
+        print_slow(f"\n[UPDATED] Added to gear. Inventory: {player_inventory}")
+    
+    print_slow("\nYou arrive at the Megacorp terminal block...")
+    hack_sequence()
+
+def hack_sequence():
+    print_slow("\n[ALERT] Firewall engaged! Scanning for decryption tools...")
+    time.sleep(1)
+    
+    # Logic check: Does the item exist in our list?
+    if "Laser-Decryptor" in player_inventory:
+        print_slow("\n[ITEM DETECTED] Your Laser-Decryptor bypasses the sub-layers automatically!")
+        attempts = 5
+    else:
+        print_slow("\n[WARNING] Standard deck only. Security matrix is extremely tight.")
+        attempts = 2
+        
+    # Generates a completely dynamic random code between 1 and 10
+    secret_code = random.randint(1, 10)
+    print_slow(f"Guess the system override frequency code between 1 and 10.")
+    
+    while attempts > 0:
+        guess = int(input(f"\nEnter code (Attempts left: {attempts}): "))
+        if guess == secret_code:
+            print_slow("\n[SUCCESS] Mainframe completely broken! You are now a master netrunner.")
+            return
+        elif guess < secret_code:
+            print_slow("[DENIED] Frequency too LOW.")
+            attempts -= 1
+        else:
+            print_slow("[DENIED] Frequency too HIGH.")
+            attempts -= 1
+            
+    print_slow(f"\n[FATAL] System locked. The correct code was {secret_code}. GAME OVER.")
+
+start_game()
