@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netrunner Node</title>
+    <title>Netrunner Node Pro</title>
     <style>
         body {
             background-color: #001219;
@@ -15,11 +15,13 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
         }
         h1 {
             color: #f15bb5;
             text-shadow: 0 0 10px #f15bb5, 0 0 20px #f15bb5;
             font-size: 3rem;
+            margin-bottom: 10px;
         }
         .container {
             border: 2px solid #00f5d4;
@@ -27,17 +29,30 @@
             border-radius: 10px;
             box-shadow: 0 0 15px #00f5d4;
             text-align: center;
+            width: 450px;
+            background: rgba(0, 18, 25, 0.8);
+        }
+        .console-box {
+            background-color: #000814;
+            border: 1px solid #fee440;
+            height: 120px;
+            margin: 20px 0;
+            padding: 10px;
+            text-align: left;
+            font-size: 0.9rem;
+            overflow-y: auto;
+            color: #fee440;
         }
         button {
             background-color: transparent;
             color: #fee440;
             border: 2px solid #fee440;
-            padding: 10px 20px;
+            padding: 12px 25px;
             font-size: 1rem;
             cursor: pointer;
             border-radius: 5px;
-            margin-top: 20px;
             font-family: inherit;
+            transition: all 0.3s ease;
         }
         button:hover {
             background-color: #fee440;
@@ -49,11 +64,57 @@
 <body>
 
     <div class="container">
-        <h1>SYSTEM ONLINE</h1>
-        <p>Welcome to CloudyTacos' secure cyberpunk server node.</p>
-        <p>Status: <span style="color: #fee440;">FULLY OPERATIONAL</span></p>
-        <button onclick="alert('Access Mainframe Activated!')">INITIALIZE BYPASS</button>
+        <h1 id="status-title">SYSTEM ONLINE</h1>
+        <p>Secure netrunner terminal link for <span style="color: #f15bb5; font-weight: bold;">CloudyTacos</span>.</p>
+        
+        <!-- This empty box is where JavaScript will dump our fake code log -->
+        <div class="console-box" id="console-log">Ready for connection...</div>
+        
+        <!-- We changed the onclick action to a custom JavaScript function -->
+        <button id="bypass-btn" onclick="startBypass()">INITIALIZE BYPASS</button>
     </div>
+
+    <!-- This is JavaScript: The programming language of the web -->
+    <script>
+        function startBypass() {
+            const consoleBox = document.getElementById("console-log");
+            const title = document.getElementById("status-title");
+            const button = document.getElementById("bypass-btn");
+
+            // Disable button during hack execution
+            button.disabled = true;
+            button.innerText = "EXECUTING...";
+            consoleBox.innerHTML = ""; // Clear initial text
+
+            const logs = [
+                "[LOAD] Mapping port proxies...",
+                "[INFO] Injecting payload into node 1...",
+                "[WARN] Firewall trace detected!",
+                "[BYPASS] Overriding encrypted layers...",
+                "[SUCCESS] ACCESS GRANTED. Mainframe downloaded."
+            ];
+
+            let index = 0;
+
+            // This creates a loop that types out each line dynamically every 1 second
+            const interval = setInterval(() => {
+                if (index < logs.length) {
+                    consoleBox.innerHTML += logs[index] + "<br>";
+                    consoleBox.scrollTop = consoleBox.scrollHeight; // Scroll to bottom
+                    index++;
+                } else {
+                    clearInterval(interval);
+                    // Flash the final victory state changes
+                    title.innerText = "ACCESS GRANTED";
+                    title.style.color = "#00f5d4";
+                    title.style.textShadow = "0 0 15px #00f5d4";
+                    button.innerText = "SYSTEM CRACKED";
+                    button.style.borderColor = "#00f5d4";
+                    button.style.color = "#00f5d4";
+                }
+            }, 1000);
+        }
+    </script>
 
 </body>
 </html>
